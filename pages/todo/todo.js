@@ -42,17 +42,22 @@ Page({
       this.emptyInputValue()
     }
   },
-  deleteItembyId: function(deleteItemId) {
+  deleteItembyId: function(deleteItem) {
+    const { itemId } = deleteItem.detail
     const todoList = this.getTodoList()
+
     const newTodoList = todoList.filter(function (item) {
-      return item.id !== deleteItemId
+      return item.id !== itemId
     })
+
     this.updateTodoList(newTodoList)
   },
-  updateItemCompleteStatusById: function(completeItemId) {
+  updateItemCompleteStatusById: function(updateItem) {
+    const { itemId } = updateItem.detail
     const todoList = this.getTodoList()
+
     const netTodoList = todoList.map(function(item) {
-      if (item.id === completeItemId) {
+      if (item.id === itemId) {
         return {
           ...item,
           complete: !item.complete
@@ -60,6 +65,7 @@ Page({
       }
       return item;
     })
+
     this.updateTodoList(netTodoList)
   }
 })

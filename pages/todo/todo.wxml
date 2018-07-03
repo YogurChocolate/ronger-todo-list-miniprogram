@@ -3,6 +3,7 @@
   bindconfirm='addItem' value='{{userInputValue}}'></input>
 
   <view wx:key wx:for='{{todoList}}'>
-    <todo-item item='{{item}}'/>
+    <todo-item item='{{item}}' bind:deleteItem='deleteItembyId'
+    bind:updateItem='updateItemCompleteStatusById'/>
   </view>
 </view>

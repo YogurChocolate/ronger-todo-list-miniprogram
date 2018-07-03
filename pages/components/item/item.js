@@ -1,40 +1,25 @@
-import {PAGES} from '../../../utils/constant.js'
-
 Component({
   properties: {
     item: {
       type: {
-        id: {
-          type: Number
-        },
-        value: {
-          type: String
-        },
-        complete: {
-          type: Boolean
-        },
+        id: Number,
+        value: String,
+        complete: Boolean,
       }
     }
   },
   methods: {
-    getTodoListPage: function() {
-      return getCurrentPages().find(function (page) {
-        return page.is === PAGES.TODO
-      })
-    },
     deleteItem: function() {
-      const todoPage = this.getTodoListPage()
-      const deleteItemId = this.data.item.id
-      if (todoPage) {
-        todoPage.deleteItembyId(deleteItemId)
-      }
+      const itemId = this.data.item.id
+      this.triggerEvent('deleteItem', {
+        itemId
+      }, {})
     },
     completeItem: function() {
-      const todoPage = this.getTodoListPage()
-      const completeItemId = this.data.item.id
-      if (todoPage) {
-        todoPage.updateItemCompleteStatusById(completeItemId)
-      }
+      const itemId = this.data.item.id
+      this.triggerEvent('updateItem', {
+        itemId
+      }, {})
     }
   }
 })
