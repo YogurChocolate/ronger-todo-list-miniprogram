@@ -1,1 +1,25 @@
-/* pages/component/item/item.wxss */
+.item {
+  margin: 15rpx 50rpx;
+  display: flex;
+  color: #BFCAB9;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 1px 2px 0px #BFCAB9;
+}
+
+.item__text-complete-button {
+  display: flex;
+  align-items: center;
+  max-width: 90%;
+  word-break: break-all;
+}
+
+.item__text {
+  font-size: 40rpx;
+  padding-left: 20rpx;
+}
+
+.item__box-shadow--completed {
+  color: #597889;
+  box-shadow: 0px 1px 2px 0px #597889;
+}

@@ -1,5 +1,8 @@
-<view>
-  <text bind:tap='completeItem'>complete</text>
-  <text>{{item.value}}</text>
-  <text bind:tap='deleteItem'>delete</text>
+<view class='{{item.complete ? "item item__box-shadow--completed" : "item"}}'>
+  <view class='item__text-complete-button'>
+    <icon bind:tap='completeItem' type='success_no_circle' size='21'
+    color='{{item.complete ? "#597889" : "#BFCAB9"}}'/>
+    <text class='item__text'>{{item.value}}</text>
+  </view>
+  <icon bind:tap='deleteItem' type='cancel' size='22'/>
 </view>
