@@ -14,6 +14,11 @@ Page({
       })
     }
   },
+  emptyInputValue: function () {
+    this.setData({
+      userInputValue: ''
+    })
+  },
   getTodoList: function() {
     return this.data.todoList;
   },
@@ -26,24 +31,35 @@ Page({
       todoList: newTodoList
     })
   },
-  deleteItembyId: function(deleteItemId) {
-    const todoList = this.getTodoList()
-    const newTodoList = todoList.filter(function(item) {
-      return item.id !== deleteItemId
-    })
-    this.updateTodoList(newTodoList)
-  },
   addItem: function() {
     if(this.data.userInputValue) {
       const newItem = {
         id: this.data.todoList.length,
         value: this.data.userInputValue,
-        complete: true
+        complete: false
       }
-      this.setTodoList(newItem);
-      this.setData({
-        userInputValue: ''
-      })
+      this.setTodoList(newItem)
+      this.emptyInputValue()
     }
+  },
+  deleteItembyId: function(deleteItemId) {
+    const todoList = this.getTodoList()
+    const newTodoList = todoList.filter(function (item) {
+      return item.id !== deleteItemId
+    })
+    this.updateTodoList(newTodoList)
+  },
+  updateItemCompleteStatusById: function(completeItemId) {
+    const todoList = this.getTodoList()
+    const netTodoList = todoList.map(function(item) {
+      if (item.id === completeItemId) {
+        return {
+          ...item,
+          complete: !item.complete
+        }
+      }
+      return item;
+    })
+    this.updateTodoList(netTodoList)
   }
 })

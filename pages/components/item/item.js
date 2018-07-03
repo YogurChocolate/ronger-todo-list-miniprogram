@@ -25,7 +25,16 @@ Component({
     deleteItem: function() {
       const todoPage = this.getTodoListPage()
       const deleteItemId = this.data.item.id
-      todoPage.deleteItembyId(deleteItemId)
+      if (todoPage) {
+        todoPage.deleteItembyId(deleteItemId)
+      }
+    },
+    completeItem: function() {
+      const todoPage = this.getTodoListPage()
+      const completeItemId = this.data.item.id
+      if (todoPage) {
+        todoPage.updateItemCompleteStatusById(completeItemId)
+      }
     }
   }
 })
