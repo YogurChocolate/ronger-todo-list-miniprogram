@@ -1,0 +1,3 @@
+<view>
+  <text>{{item.value}}</text><text bind:tap='deleteItem'>delete</text>
+</view>
