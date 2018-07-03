@@ -1,5 +1,5 @@
-<view>
-  <input type='text' placeholder='todo' bindinput='bindUserInput'
+<view class='todo'>
+  <input class='todo__input' type='text' placeholder='todo' bindinput='bindUserInput'
   bindconfirm='addItem' value='{{userInputValue}}'></input>
 
   <view wx:key wx:for='{{todoList}}'>

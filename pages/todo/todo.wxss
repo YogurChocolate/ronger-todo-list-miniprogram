@@ -1,1 +1,15 @@
-/* pages/todo/todo.wxss */
+.todo {
+  display: flex;
+  flex-direction: column;
+  padding: 50rpx;
+}
+
+.todo__input {
+  align-items: center;
+  height: 60rpx;
+  color: #597889;
+  font-size: 50rpx;
+  text-align: center;
+  margin-bottom: 40rpx;
+  border-bottom: 1px solid #597889; 
+}
