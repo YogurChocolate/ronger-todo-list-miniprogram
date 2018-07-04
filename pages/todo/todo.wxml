@@ -1,12 +1,14 @@
 <view class='todo'>
   <input class='todo__input' type='text' placeholder='todo' bindinput='bindUserInput'
   bindconfirm='addItem' value='{{userInputValue}}'></input>
-  <view>
-    <text bind:tap='getAllTodoList'>all</text>
-    <text bind:tap='getCompleteToDoList'>complete</text>
-    <text bind:tap='getNotCompleteTodoList'>not complete</text>
+  <view class='todo__filter-group'>
+    <text bind:tap='getAllTodoList'
+    class='todo__filter-button {{filterType === "all" && "todo__filter-button--active"}}'>全部</text>
+    <text bind:tap='getCompleteToDoList'
+    class='todo__filter-button {{filterType === "complete" && "todo__filter-button--active"}}'>已完成</text>
+    <text bind:tap='getNotCompleteTodoList'
+    class='todo__filter-button {{filterType === "not_complete" && "todo__filter-button--active"}}'>未完成</text>
   </view>
-
   <view wx:key wx:for='{{showTodoList}}'>
     <todo-item item='{{item}}' bind:deleteItem='deleteItembyId'
     bind:updateItem='updateItemCompleteStatusById'/>

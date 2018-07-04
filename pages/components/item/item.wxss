@@ -1,6 +1,6 @@
 .item {
   font-size: 60rpx;
-  margin: 15rpx 50rpx;
+  margin: 10rpx 0;
   display: flex;
   color: #BFCAB9;
   justify-content: space-between;
@@ -22,4 +22,12 @@
 .item__box-shadow--completed {
   color: #597889;
   box-shadow: 0px 1px 2px 0px #597889;
+}
+
+.item__complete-button {
+  padding-left: 10rpx;
+}
+
+.item__delete-button {
+  padding-right: 10rpx;
 }

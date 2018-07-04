@@ -57,7 +57,7 @@ Page({
       const filterType = this.data.filterType
 
       if (filterType === FILTER_TYPE.ALL ||
-        filterType === FILTER_TYPE.NOT_COMPLETE) {
+          filterType === FILTER_TYPE.NOT_COMPLETE) {
         this.setTodoList(newItem)
         this.setShowTodoList(newItem)
       }
@@ -123,14 +123,13 @@ Page({
         this.getNotCompleteTodoList()
         break
     }
-
   },
   setFilterType: function (filterType) {
     this.setData({
       filterType,
     })
   },
-  getAllTodoList: function(d) {
+  getAllTodoList: function() {
     this.setFilterType(FILTER_TYPE.ALL)
     this.updateShowTodoList(this.getTodoList())
   },
