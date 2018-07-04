@@ -129,24 +129,27 @@ Page({
       filterType,
     })
   },
+  updateShowTodoListByCompleteStatus: function(completeStatus = null) {
+    const todoList = this.getTodoList()
+    const newTodoList = todoList.filter(function (item) {
+      if (completeStatus === null) {
+        return item
+      }
+      return item.complete === completeStatus
+    })
+    this.updateShowTodoList(newTodoList)
+  },
   getAllTodoList: function() {
     this.setFilterType(FILTER_TYPE.ALL)
-    this.updateShowTodoList(this.getTodoList())
+    this.updateShowTodoListByCompleteStatus()
   },
   getCompleteToDoList: function() {
     this.setFilterType(FILTER_TYPE.COMPLETE)
     const todoList = this.getTodoList()
-    const newTodoList = todoList.filter(function(item) {
-      return item.complete
-    })
-    this.updateShowTodoList(newTodoList)
+    this.updateShowTodoListByCompleteStatus(true)
   },
   getNotCompleteTodoList: function() {
     this.setFilterType(FILTER_TYPE.NOT_COMPLETE)
-    const todoList = this.getTodoList()
-    const newTodoList = todoList.filter(function (item) {
-      return !item.complete
-    })
-    this.updateShowTodoList(newTodoList)
+    this.updateShowTodoListByCompleteStatus(false)
   }
 })
