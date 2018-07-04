@@ -1,7 +1,8 @@
 Page({
   data: {
     userInputValue: '',
-    todoList: []
+    todoList: [],
+    showTodoList: []
   },
   onLoad: function (options) {  
   },
@@ -20,43 +21,66 @@ Page({
     })
   },
   getTodoList: function() {
-    return this.data.todoList;
+    return this.data.todoList
+  },
+  updateTodoList: function (newTodoList) {
+    this.setData({
+      todoList: newTodoList
+    })
   },
   setTodoList: function(item) {
     this.data.todoList.push(item)
     this.updateTodoList(this.data.todoList)
   },
-  updateTodoList: function(newTodoList) {
+  getShowTodoList: function() {
+    return this.data.showTodoList
+  },
+  updateShowTodoList: function(newShowTodoList) {
     this.setData({
-      todoList: newTodoList
-    })
+      showTodoList: newShowTodoList
+    });
+  },
+  setShowTodoList: function (item) {
+    this.data.showTodoList.push(item)
+    this.updateShowTodoList(this.data.showTodoList)
   },
   addItem: function() {
     if(this.data.userInputValue) {
       const newItem = {
-        id: this.data.todoList.length,
+        id: Date.now(),
         value: this.data.userInputValue,
         complete: false
       }
       this.setTodoList(newItem)
+      this.setShowTodoList(newItem)
       this.emptyInputValue()
     }
   },
-  deleteItembyId: function(deleteItem) {
-    const { itemId } = deleteItem.detail
-    const todoList = this.getTodoList()
+  deleteFun: function(todoList, itemId, updateTodoFun) {
+    if (!(todoList || itemId || updateTodoFun)) {
+      return
+    }
 
     const newTodoList = todoList.filter(function (item) {
       return item.id !== itemId
     })
-
-    this.updateTodoList(newTodoList)
+    updateTodoFun(newTodoList)
   },
-  updateItemCompleteStatusById: function(updateItem) {
-    const { itemId } = updateItem.detail
-    const todoList = this.getTodoList()
+  deleteItembyId: function(deleteItem) {
+    const { itemId } = deleteItem.detail
 
-    const netTodoList = todoList.map(function(item) {
+    const todoList = this.getTodoList()
+    this.deleteFun(todoList, itemId, this.updateTodoList)
+
+    const showTodoList = this.getShowTodoList()
+    this.deleteFun(showTodoList, itemId, this.updateShowTodoList)
+  },
+  updateFun: function (todoList, itemId, updateTodoFun) {
+    if (!(todoList || itemId || updateTodoFun)) {
+      return
+    }
+
+    const newTodoList = todoList.map(function (item) {
       if (item.id === itemId) {
         return {
           ...item,
@@ -65,7 +89,14 @@ Page({
       }
       return item;
     })
+    updateTodoFun(newTodoList)
+  },
+  updateItemCompleteStatusById: function(updateItem) {
+    const { itemId } = updateItem.detail
+    const todoList = this.getTodoList()
+    this.updateFun(todoList, itemId, this.updateTodoList)
 
-    this.updateTodoList(netTodoList)
+    const showTodoList = this.getShowTodoList()
+    this.updateFun(showTodoList, itemId, this.updateShowTodoList)
   }
 })
