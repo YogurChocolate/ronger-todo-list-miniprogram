@@ -1,6 +1,11 @@
 <view class='todo'>
   <input class='todo__input' type='text' placeholder='todo' bindinput='bindUserInput'
   bindconfirm='addItem' value='{{userInputValue}}'></input>
+  <view>
+    <text bind:tap='getAllTodoList'>all</text>
+    <text bind:tap='getCompleteToDoList'>complete</text>
+    <text bind:tap='getNotCompleteTodoList'>not complete</text>
+  </view>
 
   <view wx:key wx:for='{{showTodoList}}'>
     <todo-item item='{{item}}' bind:deleteItem='deleteItembyId'

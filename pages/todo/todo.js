@@ -1,6 +1,9 @@
+import { FILTER_TYPE } from '../../utils/constants.js'
+
 Page({
   data: {
     userInputValue: '',
+    filterType: FILTER_TYPE.ALL,
     todoList: [],
     showTodoList: []
   },
@@ -51,8 +54,18 @@ Page({
         value: this.data.userInputValue,
         complete: false
       }
-      this.setTodoList(newItem)
-      this.setShowTodoList(newItem)
+      const filterType = this.data.filterType
+
+      if (filterType === FILTER_TYPE.ALL ||
+        filterType === FILTER_TYPE.NOT_COMPLETE) {
+        this.setTodoList(newItem)
+        this.setShowTodoList(newItem)
+      }
+
+      if (filterType === FILTER_TYPE.COMPLETE) {
+        this.setTodoList(newItem)
+      }
+      
       this.emptyInputValue()
     }
   },
@@ -98,5 +111,43 @@ Page({
 
     const showTodoList = this.getShowTodoList()
     this.updateFun(showTodoList, itemId, this.updateShowTodoList)
+
+    this.updateShowTodoListByFilterType(this.data.filterType)
+  },
+  updateShowTodoListByFilterType: function(filterType) {
+    switch (filterType) {
+      case FILTER_TYPE.COMPLETE:
+        this.getCompleteToDoList()
+        break
+      case FILTER_TYPE.NOT_COMPLETE:
+        this.getNotCompleteTodoList()
+        break
+    }
+
+  },
+  setFilterType: function (filterType) {
+    this.setData({
+      filterType,
+    })
+  },
+  getAllTodoList: function(d) {
+    this.setFilterType(FILTER_TYPE.ALL)
+    this.updateShowTodoList(this.getTodoList())
+  },
+  getCompleteToDoList: function() {
+    this.setFilterType(FILTER_TYPE.COMPLETE)
+    const todoList = this.getTodoList()
+    const newTodoList = todoList.filter(function(item) {
+      return item.complete
+    })
+    this.updateShowTodoList(newTodoList)
+  },
+  getNotCompleteTodoList: function() {
+    this.setFilterType(FILTER_TYPE.NOT_COMPLETE)
+    const todoList = this.getTodoList()
+    const newTodoList = todoList.filter(function (item) {
+      return !item.complete
+    })
+    this.updateShowTodoList(newTodoList)
   }
 })
