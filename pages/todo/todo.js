@@ -1,4 +1,5 @@
-import { FILTER_TYPE } from '../../utils/constants.js'
+import { FILTER_TYPE, config } from '../../utils/constants.js'
+const app = getApp()
 
 Page({
   data: {
@@ -7,9 +8,29 @@ Page({
     todoList: [],
     showTodoList: []
   },
-  onLoad: function (options) {  
+  onLoad: function () {
+    const that = this
+    if (app.globalData.openId) {
+      wx.request({
+        url: `${config.host}/api/todo-list/${app.globalData.openId}`,
+        success: function (res) {
+          const todoList = res.data.todoList
+          that.updateShowTodoList(todoList)
+          that.updateTodoList(todoList)
+        }
+      })
+    }
   },
-  onUnload: function () {
+  onHide: function () {
+    if (app.globalData.openId) {
+      wx.request({
+        url: `${config.host}/api/todo-list/${app.globalData.openId}`,
+        method: 'post',
+        data: {
+          todoList: this.data.todoList
+        }
+      })
+    }
   },
   bindUserInput: function(e) {
     if (e.detail.value) {
@@ -32,8 +53,8 @@ Page({
     })
   },
   setTodoList: function(item) {
-    this.data.todoList.push(item)
-    this.updateTodoList(this.data.todoList)
+    const newTodoList = this.data.todoList.concat(item)
+    this.updateTodoList(newTodoList)
   },
   getShowTodoList: function() {
     return this.data.showTodoList
@@ -44,13 +65,13 @@ Page({
     });
   },
   setShowTodoList: function (item) {
-    this.data.showTodoList.push(item)
-    this.updateShowTodoList(this.data.showTodoList)
+    const newShowTodoList = this.data.showTodoList.concat(item)
+    this.updateShowTodoList(newShowTodoList)
   },
   addItem: function() {
     if(this.data.userInputValue) {
       const newItem = {
-        id: Date.now(),
+        index: Date.now(),
         value: this.data.userInputValue,
         complete: false
       }
@@ -69,32 +90,32 @@ Page({
       this.emptyInputValue()
     }
   },
-  deleteFun: function(todoList, itemId, updateTodoFun) {
-    if (!(todoList || itemId || updateTodoFun)) {
+  deleteFun: function(todoList, itemIndex, updateTodoFun) {
+    if (!(todoList || itemIndex || updateTodoFun)) {
       return
     }
 
     const newTodoList = todoList.filter(function (item) {
-      return item.id !== itemId
+      return item.index !== itemIndex
     })
     updateTodoFun(newTodoList)
   },
-  deleteItembyId: function(deleteItem) {
-    const { itemId } = deleteItem.detail
+  deleteItembyIndex: function(deleteItem) {
+    const { itemIndex } = deleteItem.detail
 
     const todoList = this.getTodoList()
-    this.deleteFun(todoList, itemId, this.updateTodoList)
+    this.deleteFun(todoList, itemIndex, this.updateTodoList)
 
     const showTodoList = this.getShowTodoList()
-    this.deleteFun(showTodoList, itemId, this.updateShowTodoList)
+    this.deleteFun(showTodoList, itemIndex, this.updateShowTodoList)
   },
-  updateFun: function (todoList, itemId, updateTodoFun) {
-    if (!(todoList || itemId || updateTodoFun)) {
+  updateFun: function (todoList, itemIndex, updateTodoFun) {
+    if (!(todoList || itemIndex || updateTodoFun)) {
       return
     }
 
     const newTodoList = todoList.map(function (item) {
-      if (item.id === itemId) {
+      if (item.index === itemIndex) {
         return {
           ...item,
           complete: !item.complete
@@ -104,13 +125,13 @@ Page({
     })
     updateTodoFun(newTodoList)
   },
-  updateItemCompleteStatusById: function(updateItem) {
-    const { itemId } = updateItem.detail
+  updateItemCompleteStatusByIndex: function(updateItem) {
+    const { itemIndex } = updateItem.detail
     const todoList = this.getTodoList()
-    this.updateFun(todoList, itemId, this.updateTodoList)
+    this.updateFun(todoList, itemIndex, this.updateTodoList)
 
     const showTodoList = this.getShowTodoList()
-    this.updateFun(showTodoList, itemId, this.updateShowTodoList)
+    this.updateFun(showTodoList, itemIndex, this.updateShowTodoList)
 
     this.updateShowTodoListByFilterType(this.data.filterType)
   },

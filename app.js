@@ -1,15 +1,21 @@
-//app.js
+import { config } from './utils/constants.js'
+
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    // 登录
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        const userCode = res.code
+        if (userCode) {
+          wx.request({
+            url: `${config.host}/api/user/${userCode}`,
+            success: (res) => {
+              this.globalData.openId = res.data.openId
+              wx.redirectTo({
+                url: '../todo/todo',
+              })
+            }
+          })
+        }
       }
     })
     // 获取用户信息
@@ -34,6 +40,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    openId: ''
   }
 })

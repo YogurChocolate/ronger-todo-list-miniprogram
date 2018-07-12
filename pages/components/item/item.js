@@ -2,7 +2,7 @@ Component({
   properties: {
     item: {
       type: {
-        id: Number,
+        index: Number,
         value: String,
         complete: Boolean,
       }
@@ -10,15 +10,15 @@ Component({
   },
   methods: {
     deleteItem: function() {
-      const itemId = this.data.item.id
+      const itemIndex = this.data.item.index
       this.triggerEvent('deleteItem', {
-        itemId
+        itemIndex
       }, {})
     },
     completeItem: function() {
-      const itemId = this.data.item.id
+      const itemIndex = this.data.item.index
       this.triggerEvent('updateItem', {
-        itemId
+        itemIndex
       }, {})
     }
   }

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/todo/todo",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/todo/todo"
   ],
   "window": {
     "backgroundTextStyle": "light",
