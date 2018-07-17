@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "Share Todo List",
+  "usingComponents": {
+    "todo-item": "../components/item/item"
+  }
+}

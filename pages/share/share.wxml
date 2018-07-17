@@ -1,0 +1,8 @@
+<view class='share'>
+  <button size='mini' class='share__back-button' bind:tap='goToMyTodoList'>返回</button>
+  <text class='share__nickName'>{{nickName}}</text>
+  <view wx:key wx:for='{{shareTodoList}}'>
+    <todo-item item='{{item}}' hasButton='{{false}}'/>
+  </view>
+  
+</view>

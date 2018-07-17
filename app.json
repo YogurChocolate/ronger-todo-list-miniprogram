@@ -1,12 +1,13 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/todo/todo"
+    "pages/todo/todo",
+    "pages/share/share"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "Todo",
     "navigationBarTextStyle": "black"
   }
 }

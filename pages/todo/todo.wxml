@@ -10,7 +10,7 @@
     class='todo__filter-button {{filterType === "not_complete" && "todo__filter-button--active"}}'>未完成</text>
   </view>
   <view wx:key wx:for='{{showTodoList}}'>
-    <todo-item item='{{item}}' bind:deleteItem='deleteItembyIndex'
+    <todo-item item='{{item}}' hasButton='{{true}}' bind:deleteItem='deleteItembyIndex'
     bind:updateItem='updateItemCompleteStatusByIndex'/>
   </view>
 </view>

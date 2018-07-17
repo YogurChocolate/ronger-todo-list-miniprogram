@@ -4,9 +4,10 @@ Component({
       type: {
         index: Number,
         value: String,
-        complete: Boolean,
+        complete: Boolean
       }
-    }
+    },
+    hasButton: Boolean
   },
   methods: {
     deleteItem: function() {

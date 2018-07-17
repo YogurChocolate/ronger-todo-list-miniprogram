@@ -4,5 +4,7 @@
     color='{{item.complete ? "#597889" : "#BFCAB9"}}'/>
     <text class='item__text'>{{item.value}}</text>
   </view>
-  <icon class='item__delete-button' bind:tap='deleteItem' type='cancel' size='25'/>
+  <block wx:if='{{hasButton}}'>
+    <icon class='item__delete-button' bind:tap='deleteItem' type='cancel' size='25'/>
+  </block>
 </view>

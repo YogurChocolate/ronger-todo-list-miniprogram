@@ -5,17 +5,23 @@
   align-items: center;
 }
 
-.userinfo-avatar {
+.userinfo__avatar {
   width: 128rpx;
   height: 128rpx;
   margin: 20rpx;
   border-radius: 50%;
 }
 
-.userinfo-nickname {
+.userinfo__nickname {
   color: #aaa;
 }
 
-.usermotto {
-  margin-top: 200px;
+.userinfo__button {
+  color: white;
+  background: #597889;
+}
+
+.userinfo__oops {
+  margin-top: 150rpx;
+  width: 450rpx;
 }

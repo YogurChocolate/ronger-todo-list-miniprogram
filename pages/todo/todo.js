@@ -8,6 +8,12 @@ Page({
     todoList: [],
     showTodoList: []
   },
+  onShareAppMessage: function () {
+    const nickName = app.globalData.userInfo.nickName
+    return {
+      path: `/pages/share/share?id=${app.globalData.openId}&nickName=${nickName}`
+    }
+  },
   onLoad: function () {
     const that = this
     if (app.globalData.openId) {
