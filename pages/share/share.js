@@ -24,7 +24,7 @@ Page({
   },
   goToMyTodoList: function () {
     wx.redirectTo({
-      url: '../todo/todo',
+      url: '../index/index',
     })
   }
 })
